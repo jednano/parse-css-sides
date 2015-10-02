@@ -1,4 +1,5 @@
 var t = require('tcomb');
+var cssListHelpers = require('css-list-helpers');
 
 var Sides = t.struct({
 	top: t.Str,
@@ -8,10 +9,7 @@ var Sides = t.struct({
 });
 
 module.exports = t.func(t.Str, Sides).of(function(value) {
-	var sides = value.split(/\s+/);
-	if (sides[0] === '') {
-		throw new Error('No sides to parse');
-	}
+	var sides = cssListHelpers.splitBySpaces(value);
 	switch (sides.length) {
 		case 1: {
 			return {

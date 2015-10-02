@@ -1,6 +1,6 @@
 {
   "name": "parse-css-sides",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Parses CSS sides (e.g., margin, padding, border) into an object.",
   "main": "index.js",
   "scripts": {
@@ -31,6 +31,7 @@
     "tape": "^4.2.0"
   },
   "dependencies": {
+    "css-list-helpers": "^1.0.0",
     "tcomb": "^2.5.0"
   }
 }

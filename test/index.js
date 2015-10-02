@@ -8,7 +8,7 @@ tape('parse-css-sides', function(t) {
 		function() {
 			parseSides('');
 		},
-		/No sides to parse/,
+		/Cannot parse 0 sides/,
 		'throws when value is empty'
 	);
 
@@ -54,6 +54,17 @@ tape('parse-css-sides', function(t) {
 			left: '3'
 		},
 		'parses 4 values'
+	);
+
+	t.deepEqual(
+		parseSides('fn(a, b) fn(\'c d\', e) fn(f, g) fn(h, "i j", k)'),
+		{
+			top: 'fn(a, b)',
+			right: 'fn(\'c d\', e)',
+			bottom: 'fn(f, g)',
+			left: 'fn(h, "i j", k)'
+		},
+		'preserves functions with spaces and commas inside'
 	);
 
 	t.throws(
