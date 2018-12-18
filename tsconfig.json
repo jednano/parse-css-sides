@@ -1,0 +1,9 @@
+{
+	"extends": "@jedmao/tsconfig",
+	"compilerOptions": {
+		"outDir": "dist",
+	},
+	"include": [
+		"src/**/*.ts",
+	],
+}

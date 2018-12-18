@@ -1,12 +1,38 @@
 {
   "name": "parse-css-sides",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Parses CSS sides (e.g., margin, padding, border) into an object.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "npm run cover && npm run check-coverage",
-    "cover": "istanbul cover test/index.js",
-    "check-coverage": "istanbul check-coverage"
+		"clean": "rimraf coverage dist *.log* bem-join-*",
+		"codecov": "codecov -f coverage/lcov.info",
+		"lint": "tslint -p tsconfig.test.json",
+		"prebuild": "rimraf dist",
+		"build": "tsc",
+		"precover": "rimraf coverage",
+		"cover": "jest --coverage",
+		"pretest": "npm run lint",
+		"test": "jest --watch",
+		"fix": "npm run lint -- --fix",
+		"prepublishOnly": "npm run lint && npm run cover && npm run build"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "verbose": true,
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
   },
   "repository": {
     "type": "git",
@@ -27,11 +53,16 @@
   },
   "homepage": "https://github.com/jedmao/parse-css-sides#readme",
   "devDependencies": {
-    "istanbul": "^0.3.21",
-    "tape": "^4.2.0"
+    "@jedmao/tsconfig": "^0.3.0",
+    "@jedmao/tslint": "^0.2.0",
+    "@types/jest": "^23.3.10",
+    "jest": "^23.6.0",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
   },
   "dependencies": {
-    "css-list-helpers": "^1.0.0",
-    "tcomb": "^2.5.0"
+    "css-list-helpers": "^2.0.0"
   }
 }
