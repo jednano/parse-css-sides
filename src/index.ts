@@ -1,46 +1,42 @@
-var t = require('tcomb');
-var cssListHelpers = require('css-list-helpers');
+import { splitBySpaces } from 'css-list-helpers'
 
-var Sides = t.struct({
-	top: t.Str,
-	right: t.Str,
-	bottom: t.Str,
-	left: t.Str
-});
+export interface ISides {
+	top: string
+	right: string
+	bottom: string
+	left: string
+	important?: boolean
+}
 
-module.exports = t.func(t.Str, Sides).of(function(value) {
-	var sides = cssListHelpers.splitBySpaces(value);
-	switch (sides.length) {
-		case 1: {
-			return {
-				top: sides[0],
-				right: sides[0],
-				bottom: sides[0],
-				left: sides[0]
-			};
-		}
-		case 2:
-			return {
-				top: sides[0],
-				right: sides[1],
-				bottom: sides[0],
-				left: sides[1]
-			};
-		case 3:
-			return {
-				top: sides[0],
-				right: sides[1],
-				bottom: sides[2],
-				left: sides[1]
-			};
-		case 4:
-			return {
-				top: sides[0],
-				right: sides[1],
-				bottom: sides[2],
-				left: sides[3]
-			};
-		default:
-			throw new Error('Cannot parse ' + sides.length + ' sides');
+export default function parseCSSSides(value: string): ISides {
+
+	const sides = splitBySpaces(value)
+	const pos = sides.lastIndexOf('!important')
+	const important = pos !== -1
+	if (important) {
+		sides.splice(pos, 1)
 	}
-});
+
+	const numberOfSides = sides.length
+	if (numberOfSides < 1 || numberOfSides > 4) {
+		throw new Error(`Cannot parse ${numberOfSides} sides`)
+	}
+
+	const [first, ...rest] = sides
+	return createSides(first, ...rest)
+
+	function createSides(
+		top: string,
+		right: string = top,
+		bottom: string = top,
+		left: string = right,
+	) {
+		return {
+			bottom,
+			left,
+			right,
+			top,
+			...(important ? { important } : {}),
+		}
+	}
+}
