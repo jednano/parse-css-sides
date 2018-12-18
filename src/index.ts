@@ -8,7 +8,15 @@ export interface ISides {
 	important?: boolean
 }
 
-export default function parseCSSSides(value: string): ISides {
+/**
+ * Parses CSS sides (e.g., the value of `margin`, `padding` and `border` declarations).
+ */
+export default function parseSides(
+	/**
+	 * The CSS sides to parse (e.g., `0 5% 10px !important`).
+	 */
+	value: string,
+): ISides {
 
 	const sides = splitBySpaces(value)
 	const pos = sides.lastIndexOf('!important')
@@ -40,3 +48,6 @@ export default function parseCSSSides(value: string): ISides {
 		}
 	}
 }
+
+// @ts-ignore
+exports.default.default = module.exports = exports.default

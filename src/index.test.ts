@@ -1,6 +1,13 @@
 import parseSides from '.'
 
+import requiredSides = require('.')
+
 describe('parse-css-sides', () => {
+
+	it('exports the same object for commonjs as the TypeScript export default', () => {
+		expect(requiredSides).toBe(parseSides)
+		expect(requiredSides.default).toBe(parseSides)
+	})
 
 	it('throws when passed an empty value', () => {
 		expect(() => parseSides('')).toThrowError('Cannot parse 0 sides')
