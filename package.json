@@ -1,10 +1,10 @@
 {
   "name": "parse-css-sides",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Parses CSS sides (e.g., margin, padding, border) into an object.",
   "main": "dist/index.js",
   "scripts": {
-		"clean": "rimraf coverage dist *.log* bem-join-*",
+		"clean": "rimraf coverage dist *.log* parse-css-sides-*",
 		"codecov": "codecov -f coverage/lcov.info",
 		"lint": "tslint -p tsconfig.test.json",
 		"prebuild": "rimraf dist",
@@ -14,7 +14,7 @@
 		"pretest": "npm run lint",
 		"test": "jest --watch",
 		"fix": "npm run lint -- --fix",
-		"prepublishOnly": "npm run lint && npm run cover && npm run build"
+		"prepublishOnly": "npm run clean && npm run lint && npm run cover && npm run build"
   },
   "jest": {
     "preset": "ts-jest",

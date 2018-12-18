@@ -1,5 +1,7 @@
-.*
+node_modules/
 coverage/
-test/
-gulpfile.babel.js
-jsconfig.json
+parse-css-sides-*
+.travis.yml
+*.ts
+!*.d.ts
+ts*.json
